@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    html,body{
+        height: 100%;
+    }
+    .btn:hover{
+        opacity: 0.5;
+        transition: opacity 0.5s;
+    }
+</style>
+<script>
+    function btn(){
+        location.href="{% url 'index' %}";
+    }
+</script>
+<div style="font-size: 30px; width: 100%; height:100%; display:flex; text-align:center; justify-content: center; align-items: center;">
+        <div><span>이메일이 발송되었습니다. 이메일을 확인해주세요.<br></span>
+<button type="button" class="btn btn-primary" style="color:white !important;background: #00cdcf; border-color: #00cdcf;" onclick="btn()">홈으로</button>  
+        
+        </div>
+        </div>
+
+{% endblock content %}

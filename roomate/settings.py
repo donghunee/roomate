@@ -10,27 +10,41 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import os
+import os,json
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# secret_file = os.path.join(BASE_DIR, 'secrets.json')
+# with open(secret_file) as f:
+#     secrets = json.loads(f.read())
+
+# def get_secret(setting, secrets=secrets):
+    
+#     try:
+#         return secrets[setting]
+#     except KeyError:
+#         error_msg = "error {} ".format(setting)
+#         raise ImproperlyConfigured(error_msg)
+
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j)v4&hp6o12fiuu6yj-nv@4kq-^65iu(g3y!n2*iv84$dcakze'
-
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'j)v4&hp6o12fiuu6yj-nv@4kq-^65iu(g3y!n2*iv84$dcakze')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'main',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,3 +132,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,"static"),
+)
+
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+# 메일을 호스트하는 서버
+EMAIL_PORT = '587'
+# gmail과의 통신하는 포트
+EMAIL_HOST_USER = 'ehdgns1766@gmail.com'
+# 발신할 이메일
+EMAIL_HOST_PASSWORD = "!ehdgns2797"
+#get_secret("SECRET_KEY")
+# 발신할 메일의 비밀번호
+EMAIL_USE_TLS = True
+# TLS 보안 방법
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'

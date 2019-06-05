@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+{% endblock head %}
+
+{% block content %}
+<style>
+     body,html{
+        height: 100%;
+     }
+    
+    .title{
+        width: 100%;
+        height: 80px;
+        text-align: center;
+        background: #00cdcf;
+        display: table;
+    }
+
+    .title>h1{
+        display: table-cell;
+        vertical-align: middle;
+        color: white;
+    }
+    [type=radio] + img {
+      cursor: pointer;
+    }
+    .ti{
+        font-weight: bolder;
+        font-size:1.5em;
+        vertical-align: middle;
+    }
+</style>
+    <div class="title">
+        <h1>당신은 {{day}}인것 같군요!!</h1>
+    </div>
+  <div class="container">
+      <br>
+      <form action="{% url 'three' %}" id="form1" method="POST">
+        {% csrf_token %}
+        <span class="ti"><i class="small stop icon" style="margin: auto 0 auto 0;"></i>{{day}}인 당신, 당신은 당신과 비슷한 성향의 룸메이트를 원하나요?</span><br>
+        <br>
+
+        <div class="ui form">
+            <div class="grouped fields">
+            
+              <div class="field">
+                
+                <div class="ui radio checkbox">
+                <input type="radio" name="roomate" value="1" required>
+                <label>네, 룸메이트랑 비슷한 시간에 자고 비슷한 시간에 일어나고 싶어요.</label>
+              </div>
+              <div class="field">
+                    <div class="ui radio checkbox">
+                    <input type="radio" name="roomate" value="2">
+                    <label>아니요, 룸메이트랑 방에 있는 시간이 많이 겹치지 않았으면 좋겠어요.</label>
+                </div>
+                <div class="field">
+                        <div class="ui radio checkbox">
+                        <input type="radio" name="roomate" value="3">
+                        <label>상관 없어요.</label>
+                </div>              
+            </div>
+            <br>
+
+            <div style="display:flex;"> 
+              <button class="ui button" onClick="javascript:history.go(-1);">
+              이전
+              </button>
+              <button class="ui button" type="submit" id="su" form="form1" value="Submit" style="background:#00cdcf ">
+                  다음
+                </button>
+            </div>
+              </div>
+            
+              </form>
+          </div>
+     
+  </div>
+  
+  </div>
+  <script>
+    $('.ui.checkbox').checkbox();
+    </script>
+{% endblock content %}

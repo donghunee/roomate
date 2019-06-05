@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+{% endblock head %}
+
+{% block content %}
+<style>
+     body,html{
+        height: 100%;
+     }
+    
+    .title{
+        width: 100%;
+        height: 80px;
+        text-align: center;
+        background: #00cdcf;
+        display: table;
+    }
+
+    .title>h1{
+        display: table-cell;
+        vertical-align: middle;
+        color: white;
+    }
+    [type=radio] + img {
+      cursor: pointer;
+    }
+    .ti{
+        font-weight: bolder;
+        font-size:1.5em;
+        vertical-align: middle;
+    }
+</style>
+    <div class="title">
+        <h1>만약 이런 상황이 발생한다면?</h1>
+    </div>
+  <div class="container">
+      <br>
+      <form action="{% url 'four' %}" id="form1" method="POST" onsubmit="return check()">
+        {% csrf_token %}
+        <span class="ti"><i class="small stop icon" style="margin: auto 0 auto 0;"></i>다음은 룸메이트와 함께 지낼 경우 발생할 수 있는 상황을 바탕으로 구성한 질문입니다. 평소의 나라면 어떻게 행동했을지 체크해 주세요. </span><br>
+        <br>
+
+        <div class="ui form">
+            <div class="grouped fields">
+            <label style="font-size:18px;">친구와 함께 늦게까지 술을 마시는데 친구가 차가 끊겼고, 방에는 룸메이트가 자고있어요. 갑자기 재워 달라는 친구, 당신의 선택은? </label>
+            
+              <div class="field">
+                
+                <div class="ui radio checkbox">
+                <input type="radio" name="one" value="1" required>
+                <label>그냥 집으로 데리고 가서 재운다.</label>
+              </div>
+              <div class="field">
+                    <div class="ui radio checkbox">
+                    <input type="radio" name="one" value="2">
+                    <label>친구를 집에 보내거나, 친구와 함께 그냥 밖에서 밤을 샌다.</label>
+                </div>
+                <div class="field">
+                        <div class="ui radio checkbox">
+                        <input type="radio" name="one" value="3" >
+                        <label>룸메이트를 깨워서 의견을 물어보고 말에 따른다.</label>
+                </div>
+            </div>
+            <br>
+            <div class="grouped fields">
+                    <label style="font-size:18px;">규칙을 정해 집안일을 나눴지만 너무 바빠보이는 '룸메이트', 당신의 선택은?</label>
+                    
+                      <div class="field">
+                        
+                        <div class="ui radio checkbox">
+                        <input type="radio" name="two" value="1" required>
+                        <label>일단은 내가 더 많이 한 후, 룸메이트가 한가할 때 더 많이 일하라고 말한다.</label>
+                      </div>
+                      <div class="field">
+                            <div class="ui radio checkbox">
+                            <input type="radio" name="two" value="2">
+                            <label>공동 생필품에 대해 금전적으로 더 부담한다면 상관 없다.</label>
+                        </div>
+                        <div class="field">
+                                <div class="ui radio checkbox">
+                                <input type="radio" name="two" value="3">
+                                <label>룸메이트에게 바쁘더라도 규칙대로 집안일을 해달라고 말한다.</label>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                            <input type="radio" name="two" value="4">
+                            <label>룸메이트의 몫까지 내가 해준다.</label>
+                    </div>
+                    </div><br>
+                    <div class="grouped fields">
+                        <label style="font-size:18px;">집을 자주 비우는 당신, 룸메이트가 집안일을 거의 도맡아 한다. 룸메이트가 이에 대해 불만을 가지는 것 같다면? </label>
+                        
+                          <div class="field">
+                            
+                            <div class="ui radio checkbox">
+                            <input type="radio" name="three" value="1" required>
+                            <label>밤을 새서라도 밀린 집안일을 한다.</label>
+                          </div>
+                          <div class="field">
+                                <div class="ui radio checkbox">
+                                <input type="radio" name="three" value="2">
+                                <label>공동 생필품에 대해 금전적으로 더 부담하겠다고 룸메이트와 협의한다.</label>
+                            </div>
+                            <div class="field">
+                                    <div class="ui radio checkbox">
+                                    <input type="radio" name="three" value="3">
+                                    <label>바쁜 것이 지나가면 룸메이트 몫까지 집안일을 하겠다고 한다.</label>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                <input type="radio" name="three" value="4">
+                                <label>룸메이트는 내가 바쁜 것을 이해해 줄 것이다. 룸메이트가 말을 꺼낼 때까지 그대로 지낸다.</label>
+                        </div>
+                        </div>
+        </div>        
+        
+                <br>
+                <div style="display:flex;"> 
+                  <button class="ui button" type="button" onClick="javascript:history.go(-1);">
+                  이전
+                  </button>
+                  <button class="ui button" type="submit" id="su" form="form1" value="Submit" style="background:#00cdcf ">
+                      제출
+                    </button>
+                </div>
+              </div>
+            
+              </form>
+          </div>
+     
+  </div>
+  
+  </div>
+  <script>
+    function check(){
+      swal("Are you sure you want to do this?", {
+  buttons: ["Oh noez!", true],
+});
+  alert("dawaw");
+    }
+    
+    $('.ui.checkbox').checkbox();
+    </script>
+{% endblock content %}

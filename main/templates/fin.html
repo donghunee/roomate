@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    html,body{
+        height: 100%;
+    }
+    .btn:hover{
+        opacity: 0.5;
+        transition: opacity 0.5s;
+    }
+</style>
+<script>
+    function btn(){
+        location.href="{% url 'index' %}";
+    }
+</script>
+<div style="font-size: 40px; width: 100%; height:100%; display:flex; text-align:center; justify-content: center; align-items: center;">
+        <div><span>질문이 끝났습니다.<br> 감사합니다.<br></span>
+<button type="button" class="btn btn-primary" style="color:white !important;background: #00cdcf; border-color: #00cdcf;" onclick="btn()">홈으로</button>  
+        
+        </div>
+        </div>
+
+{% endblock content %}

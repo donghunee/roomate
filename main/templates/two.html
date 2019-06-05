@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+{% endblock head %}
+
+{% block content %}
+<style>
+     body,html{
+        height: 100%;
+     }
+    
+    .title{
+        width: 100%;
+        height: 80px;
+        text-align: center;
+        background: #00cdcf;
+        display: table;
+    }
+
+    .title>h1{
+        display: table-cell;
+        vertical-align: middle;
+        color: white;
+    }
+    [type=radio] + img {
+      cursor: pointer;
+    }
+    .ti{
+        font-weight: bolder;
+        font-size:1.5em;
+        vertical-align: middle;
+    }
+</style>
+    <div class="title">
+        <h1>생활패턴에 관한 질문</h1>
+    </div>
+  <div class="container">
+      <br>
+      <form action="{% url 'two' %}" id="form1" method="POST">
+        {% csrf_token %}
+        <span class="ti"><i class="small stop icon" style="margin: auto 0 auto 0;"></i>다음은 생활 패턴에 관련된 질문입니다. 본인이 평소에 어디에 해당하는지 체크해 주세요.</span><br>
+        <br>
+        
+        <div class="ui form">
+            <div class="grouped fields">
+            <label style="font-size:18px;">보통 집에 언제 들어오시나요?</label>
+            
+              <div class="field">
+                
+                <div class="ui radio checkbox">
+                <input type="radio" name="room_in" value="1" required>
+                <label>오후 6시 이전</label>
+              </div>
+              <div class="field">
+                    <div class="ui radio checkbox">
+                    <input type="radio" name="room_in" value="2">
+                    <label>오후 6시~9시</label>
+                </div>
+                <div class="field">
+                        <div class="ui radio checkbox">
+                        <input type="radio" name="room_in" value="3" required>
+                        <label>오후 9시~자정</label>
+                </div>
+                <div class="field">
+                        <div class="ui radio checkbox">
+                        <input type="radio" name="room_in" value="4">
+                        <label>자정 이후</label>
+                      </div>   
+              
+            </div>
+            <br>
+            <div class="grouped fields">
+                    <label style="font-size:18px;">보통 언제 잠에 드시나요?</label>
+                    
+                      <div class="field">
+                        
+                        <div class="ui radio checkbox">
+                        <input type="radio" name="sleep" value="1" required>
+                        <label>자정 이전</label>
+                      </div>
+                      <div class="field">
+                            <div class="ui radio checkbox">
+                            <input type="radio" name="sleep" value="2">
+                            <label>자정 ~ 새벽2시</label>
+                        </div>
+                        <div class="field">
+                                <div class="ui radio checkbox">
+                                <input type="radio" name="sleep" value="3">
+                                <label>새벽 2시 이후</label>
+                        </div>
+                    </div>
+                  </div>        
+        
+
+                  <div style="display:flex;"> 
+                      <button class="ui button" type="button" onclick="javascript:history.go(-1);">
+                      이전
+                      </button>
+                      <button class="ui button" type="submit" id="su" form="form1" value="Submit" style="background:#00cdcf ">
+                          다음
+                        </button>
+                    </div>
+              </div>
+            
+              </form>
+          </div>
+     
+  </div>
+  
+  </div>
+  <script>
+    function loc(){
+      location.href="{% url 'first' %}"
+    }
+  $('.ui.checkbox').checkbox();
+  </script>
+{% endblock content %}

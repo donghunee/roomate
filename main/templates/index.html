@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+{% endblock head %}
+{% block content %}
+
+<style>
+	.qwe{
+		text-align: center !important;
+		width:100%;
+	}
+
+	.navbar-text{
+		display: none;
+	}
+
+	.navbar-nav{
+			display: grid;
+			align-items: center;
+    		justify-content: center;
+	}
+	
+	@media ( min-width: 990px ) {
+		.navbar-nav{
+			display:inline-flex;
+		}
+		
+		.navbar-text{
+			display: block;
+		}
+	}
+	
+</style>
+<script>
+$(function(){
+   {% if alert %}
+	swal({
+			title: "{{alert}}",
+			icon: "success",
+			button: "확인",
+		});
+      
+   {% endif %}
+ });
+
+ $(function(){
+	{% if messages %}
+
+	{% for message in messages %}
+		swal({
+			title: "{{ message.message }}",
+			icon: "error",
+			button: "확인",
+		});
+
+{% endfor %}
+
+
+{% endif %}
+
+ });
+function my(){
+	swal({
+		title: "아직 구현되지 않은\n 기능입니다.",
+		icon: "error",
+		button: "확인",
+	});
+}
+
+
+
+
+function start(){
+	{% if user.is_authenticated %}
+		location.href="{% url 'first' %}";
+	{% else %}
+	swal({
+		title: "로그인 후 이용해주세요",
+		icon: "error",
+		button: "확인",
+	});
+	
+	{% endif %}
+}
+</script>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+	<a class="navbar-brand" href="{% url 'index' %}">나랑살자</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" style="padding:0;text-align:center;width:40px;height:40px;" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarText">
+		<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav ml-auto">
+				{% if not user.is_authenticated %}
+				<li class="nav-item">
+						<a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">로그인</a>
+				</li>
+				<li class="nav-item">
+						<a class="nav-link" href="{% url 'signup' %}">회원가입
+						</a>
+				</li>
+				{% else %}
+				<li class="nav-item">
+						<a class="nav-link" href="#" onclick="my()">마이페이지
+						</a>
+				</li>
+				<li class="nav-item">
+						
+						<form id="myform"  method="POST" style="margin-bottom: 0;" action="{% url 'logout' %}">
+							{% csrf_token %}
+							<input type="hidden" name="name" value="value" /> 
+							<a class="nav-link" style="cursor: pointer;" onclick="document.getElementById('myform').submit();">로그아웃</a>
+						</form>
+						
+				</li>
+				{% endif %}
+		</ul>
+		</ul>
+		
+		<div class="navbar-collapse collapse">
+			
+	</div>
+	</div>
+	<span class="navbar-text">
+			<span style="font-weight: bolder;">{{user.username}}</span> 님 환영합니다.
+	</span>
+		</nav>  
+			<section id="banner">
+				
+				<h2><span class="animated fadeIn slower">룸메이트 매칭은</span><br>
+				<strong><span class="animated fadeIn slower">나랑살자</span></strong></h2>
+				<p>당신의 룸메이트를 선택하세요</p>
+				<ul class="actions">
+					<li><a onclick="start()" class="button special" style="text-decoration: none;">시작하기</a></li>
+				</ul>
+		
+			</section>
+
+		<!-- One -->
+			<section id="one" class="wrapper special">
+				<div class="inner">
+					<header class="major">
+						<h2><strong>나랑살자</strong>만의 특징</h2>
+					</header>
+					<div class="features">
+						<div class="feature">
+							<i class="fa fas fa-user-friends" ></i>
+							<h4><strong>알고리즘을 통한 매칭</strong></h4>
+							<p>가중치 알고리즘을 통해<br>최적의 룸메이트를 매칭해줍니다.</p>
+						</div>
+						<div class="feature">
+							<i class="fa fas fa-mail-bulk"></i>
+							<h4><strong>이메일 인증 시스템</strong></h4>
+							<p>이메일 인증 시스템을 통해<br>본교 학생들만 이용할 수 있습니다.</p>
+						</div>					
+						<div class="feature">
+							<i class="fa fas fa-check-square"></i>
+							<h4><strong>차별화된 질문지</strong></h4>
+							<p>기존과 다른 차별화된 질문을 통해<br> 좀더 정확한 매칭을 도와줍니다.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div style="" class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content" >
+							<div class="modal-header" >
+								<h5 class="modal-title" id="exampleModalCenterTitle">로그인</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						
+								<div class="login-page">
+									<div class="form">
+										<form class="login-form"method="POST" action="{% url 'login' %}">
+											{% csrf_token %}<label style="font-size: 15px;">아이디</label>
+											<input type="text" placeholder="아이디를 입력하세요" style="text-transform:lowercase;" id="user_id" name="user_id" />
+											<label style="font-size: 15px;">비밀번호</label>
+											<input type="password" placeholder="비밀번호를 입력하세요" id="user_pw" name="user_pw"/>
+											<button type="submit">로그인</button>
+											<p class="message" onclick="test1(); return false;">회원이 아니신가요? <a href="{% url 'signup' %}">회원가입</a></p>
+										</form>
+									</div>
+								</div>
+						
+						
+						</div>
+					</div>
+			</div>
+		<!-- Two -->
+			<section id="two" class="wrapper style2 special">
+				<div class="inner narrow" style="width:30%;">
+					<header>
+						<h2>팀소개</h2>
+						<br>
+						<div class="animated infinite swing slow qwe">
+						<span>정다연</span></div>
+						<div class="animated infinite rubberBand slow qwe">
+						원정윤</div>
+						<div class="animated infinite jello slow qwe">
+						최혜지</div>
+						<div class="animated infinite tada slow qwe">
+						류성한</div>
+						<div class="animated infinite heartBeat slow qwe">
+						이동훈</div>	
+						<!-- <span class="team">원정윤</span><br>
+						<span class="team">최혜지</span><br>
+						<span class="team">류성한</span><br>
+						<span class="team">이동훈</span><br> -->
+					</header>
+					<!-- <form class="grid-form" method="post" action="#">
+						<div class="form-control narrow">
+							<label for="name">Name</label>
+							<input name="name" id="name" type="text">
+						</div>
+						<div class="form-control narrow">
+							<label for="email">Email</label>
+							<input name="email" id="email" type="email">
+						</div>
+						<div class="form-control">
+							<label for="message">Message</label>
+							<textarea name="message" id="message" rows="4"></textarea>
+						</div>
+						<ul class="actions">
+							<li><input value="Send Message" type="submit"></li>
+						</ul>
+					</form> -->
+				</div>
+			</section>
+<script>
+$(document).ready(function(){
+  $("#user_id").bind("keyup",function(){
+    $(this).val($(this).val().toLowerCase());
+  });
+});
+
+
+$('.team').hover(function() {
+  $(this).removeClass("team");	
+  $(this).addClass("animated infinite bounce delay-2s");
+}, function(){
+  $(this).removeClass("animated infinite bounce delay-2s");
+});
+
+</script>
+{% endblock content %}

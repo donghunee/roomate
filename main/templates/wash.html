@@ -1,0 +1,499 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+{% endblock head %}
+
+{% block content %}
+<style>
+     body,html{
+        height: 100%;
+     }
+    
+    .title{
+        width: 100%;
+        height: 80px;
+        text-align: center;
+        background: #00cdcf;
+        display: table;
+    }
+
+    .title>h1{
+        display: table-cell;
+        vertical-align: middle;
+        color: white;
+    }
+
+    input[type=radio] + img {
+      cursor: pointer;
+    }
+    #su{
+      opacity: 0.8;
+    }
+    #su:hover{
+      opacity: 1;
+    }
+
+
+    input[type=radio]:checked + label>img {
+      outline: 3.5px solid #00cdcf;
+    }
+    .ti{
+        font-weight: bolder;
+        font-size:1.5em;
+        vertical-align: middle;
+    }
+    img{
+      cursor: pointer;
+      vertical-align: top !important;
+    }
+    
+</style>
+    <div class="title">
+        <h1>청결도 질문</h1>
+      </div>
+  <div class="container">
+      <br>
+      <form action="{% url 'first' %}" id="form1" method="POST">
+        {% csrf_token %}
+        <span class="ti"><i class="small stop icon" style="margin: auto 0 auto 0;"></i>귀하의 성별은?</span><br>
+        <br>
+        <div class="ui form">
+            <div class="grouped fields">        
+              <div class="field">
+                  <div class="ui radio checkbox">
+                  <input type="radio" name="sex" value="male" required>
+                  <label>남자</label>
+              </div>
+              <div class="field">
+                  <div class="ui radio checkbox">
+                  <input type="radio" name="sex" value="female">
+                  <label>여자</label>
+              </div>
+            </div>
+        </div>        
+
+        <span class="ti"><i class="small stop icon" style="margin: auto 0 auto 0;"></i>귀하는 흡연자이십니까?(하루 1회 흡연을 하십니까?)</span><br>
+        <br>
+        <div class="ui form">
+            <div class="grouped fields">
+              <div class="field">
+                        <div class="ui radio checkbox" id="yo">
+                        <input type="radio" name="smoke" value="yes" required id="yes" >
+                        <label>예</label>
+                      </div>
+              </div>
+              <div class="field">
+                  <div class="ui radio checkbox " id="me">
+                  <input type="radio" name="smoke" value="no" id="no">
+                  <label>아니요</label>
+              </div>
+            </div>
+          </div> 
+        </div>
+        <div id="nono" style="display: none;">
+        <span class="ti" ><i class="small stop icon" style="margin: auto 0 auto 0;"></i>매칭 시 룸메이트의 흡연 여부는? </span><br><br>
+          <div class="ui form">
+              <div class="grouped fields">
+                <div class="field">
+                          <div class="ui radio checkbox">
+                          <input type="radio" name="smoke_you" value="yes" >
+                          <label>상관없습니다.</label>
+                        </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                    <input type="radio" name="smoke_you" value="no">
+                    <label>비흡연자만 매칭해주세요.</label>
+                </div>
+              </div>
+            </div> 
+          </div>
+        </div>       
+        <br>
+        <div class="ui form">
+        <span class="ti"><i class="small stop icon" style="margin: auto 0 auto 0;"></i>사진을 보시고 평소 생활하는데 불편함을 느끼고, 내가 실제로 청소를 시작할 것 같은 시점을 골라주세요!)</span><br>
+                <br> 
+                <div class="grouped fields">
+                  <label style="font-size:20px;">공동공간 - 신발장</label>
+                  <div class="field">
+                    <div class="ui radio checkbox">
+                      <input type="radio" name="shoes" value="1" required>
+                      <label>1) 가장 위쪽 사진보다 더 깨끗해야 해요.</label>
+                      
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                      <div class="col-sm col-md-4 col-lg">
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" name="shoes" value="2" id="shoes1">  <label for="shoes1">
+
+                            2) 
+
+                          
+                            <img style="width:150px;vertical-align: top;" src="{% static 'images/first_1.jpg' %}">
+                          
+                          </label>  
+                          </div>
+                          <br>
+                        </div></div>
+                      <div class="col-sm col-md-4 col-lg">
+                        <div class="field">
+                          <div class="ui radio checkbox">
+                            <input type="radio" name="shoes" value="3" id="shoes2">
+                          <label for="shoes2">3)
+                          <img  style="width:150px;" src="https://lh5.googleusercontent.com/aoUx2GpnkkxvV7-_9Akzk89FnKdM19cBWq01wsJVauE_bcnNfThY-HfVc9cBUGCCzG7brDqfVg=w260">
+                            </label>
+                          </div>
+                          <br>
+                        </div></div>
+                      <div class="col-sm col-md-4 col-lg">
+                          <div class="field">
+                              <div class="ui radio checkbox">
+                                <input type="radio" name="shoes" value="4" id="shoes3">
+                                <label for="shoes3">4)
+                              <img style="width:150px;" src="https://lh4.googleusercontent.com/WLP8xERP-1zXOBLxWcnXPxDPgo8wvzYkqWXc6qzEvBH1KlDS-ioaa7MCAqntZ-aDoD-sTygewQ=w260">
+                                   
+                                </label>
+                              </div>
+                              <br>
+                            </div>
+                      </div>
+
+                      <div class="col-sm col-md-4 col-lg">
+                          <div class="field">
+                              <div class="ui radio checkbox">
+                                <input type="radio" name="shoes" value="5" id="shoes4">
+                                <label for="shoes4">5)
+                              <img style="width:150px;" src="https://lh4.googleusercontent.com/HkUNMHiTWKxW2vwR7zxoq7RckIRNhV3tdKmP2MW6TIlm7T31ODzC-qrDOm18XZBhs10eENUM8w=w260">
+                                   
+                                </label>
+                              </div>
+                              <br>
+                          </div>
+                      </div>
+                      <div class="col-sm col-md-4 col-lg-3">
+                          <div class="field">
+                              <div class="ui radio checkbox">
+                                <input type="radio" name="shoes" value="6" id="shoes5">
+                                <label for="shoes5">6)
+                              <img style="width:150px;" src="https://lh6.googleusercontent.com/HLmePoZkYmkjeDsJhR9W8kUdt0DChSG82fttNHSQT9wn8Dgna914SKg6cyS40m6W3EVG3c234g=w260">
+                                   
+                                </label>
+                              </div>
+                              <br>
+                            </div>
+                      </div>
+                    </div>
+                 
+                  <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="shoes" value="7">
+                        <label>7) 가장 아래쪽 사진보다 무질서해도 하루이틀쯤은 괜찮아요.</label>
+                      </div>
+                  </div>
+
+                </div>
+
+            </div>
+        </div>
+      </div>
+
+      <div class="ui form">
+                  <br>
+                  <div class="grouped fields">
+                    <label style="font-size:20px;">공동공간 - 화장실</label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="toilet" value="1" required>
+                        <label>1) 가장 위쪽 사진보다 더 깨끗해야 해요.</label>           
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm col-md-4 col-lg">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="toilet" value="2" id="toilet1">
+                                  <label for="toilet1">2)
+                                  <img style="width:150px;" src="https://lh5.googleusercontent.com/6-OMZnede3NYfgm85uwGLNdGPb3dIU2dks9_9QSoICtQ4FCxySGeITJ4jTP6Bu4WPJV3A3aqYA=w260">
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        <div class="col-sm col-md-4 col-lg">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="toilet" value="3" id="toilet2">
+                                  <label for="toilet2">3)
+                                <img  style="width:150px;" src="https://lh4.googleusercontent.com/ZTySWom-qigNk58QEM--lYfM1SQSzBIGJyuZ4kDYCbpyvv0rQEVXvlVTpoHDSIy8tN6blFs4-Q=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        <div class="col-sm col-md-4 col-lg">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="toilet" value="4" id="toilet3">
+                                  <label for="toilet3">4)
+                                <img style="width:150px;" src="https://lh3.googleusercontent.com/ANzko3JbnW65Xd6dMkU2cOoQzMbG8-MIBoEUEfKnv4DZmgWjeHoxVXtmeA6v0WoKJHMf3CfXmg=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+  
+                        <div class="col-sm col-md-4 col-lg">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="toilet" value="5" id="toilet4">
+                                  <label for="toilet4">5)
+                                <img style="width:150px;" src="https://lh3.googleusercontent.com/zWXaXXw0bSCCFN2oQf8Gosm2wkN3Sz1x5mnYiClF0HoTOd83vBvjJj6P1CN4c2U_AVobAnKuDg=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        
+                      </div>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="toilet" value="6">
+                          <label>6) 가장 아래쪽 사진보다 무질서해도 하루이틀쯤은 괜찮아요.</label>
+                        </div>
+                    </div>
+                    
+                  </div>
+  
+              </div>
+
+              <div class="ui form">
+                  <br>
+                  <div class="grouped fields">
+                    <label style="font-size:20px;">공동공간 - 주방</label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="kitchen" value="1" required>
+                        <label>1) 가장 위쪽 사진보다 더 깨끗해야 해요.</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="kitchen" value="2" id="kitchen1">
+                                  <label for="kitchen1">2)
+                                <img style="width:250px;" src="https://lh4.googleusercontent.com/3vdyte1zto9QGOfy7wX97eE8GuEfFpCFJ0Y9TQ-BfUzD7Ul8U_NYK3jEaK5sGEsgvxyzdFpEbw=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        <div class="col-sm col-md-6 col-lg-4 ">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="kitchen" value="3" id="kitchen2">
+                                  <label for="kitchen2">3)
+                                <img  style="width:250px;" src="https://lh3.googleusercontent.com/J9Wqz_c-yQ2ymMMMQE9jN-07RJ-JTaHU5rufbyMyNGcUBoa-reKEKYYJezW7onCIIjF527oSdA=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                            </div>
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="kitchen" value="4" id="kitchen3">
+                                  <label for="kitchen3">4)
+                                <img style="width:250px;" src="https://lh3.googleusercontent.com/ly5t1AlKac9_WH_RzLrdnHyOfG09lJoh4pctYrKEBPgWwOy7L-NJt1M990NZSZ9DTLpgo23yQg=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+  
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="kitchen" value="5" id="kitchen4">
+                                  <label for="kitchen4">5)
+                                <img style="width:250px;" src="https://lh3.googleusercontent.com/yNdrF5MgXkhRt2xxiGh2ULOPvVZFNZ6L28wltvzFtb1i4s4OgATyh0-Pfl-ZjZ5jh_OuVLO7Og=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="kitchen" value="6" id="kitchen5">
+                                  <label for="kitchen5">6)
+                                <img style="width:250px;" src="https://lh3.googleusercontent.com/qpyNENMCQJkkXubkOXIJC7WCEeoM8g-4CQd1gPkuIYetKHO0VHg0c-XfwlKeU7ofXARVXKPxPQ=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                      </div>
+                   
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="kitchen" value="7">
+                          <label>7) 가장 아래쪽 사진보다 무질서해도 하루이틀쯤은 괜찮아요.</label>
+                        </div>
+                    </div>
+                    
+                  </div>
+      
+              </div>
+              <div class="ui form">
+                  <br>
+                  <div class="grouped fields">
+                    <label style="font-size:20px;">개인공간 - 방</label>
+                    <div class="field">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="room" value="1" required>
+                        <label>1) 가장 위쪽 사진보다 더 깨끗해야 해요.</label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="room" value="2" id="room1">
+                                  <label for="room1">2)
+                                <img style="width:250px;" src="https://lh5.googleusercontent.com/84CjCYPAUFm-i-HTJ4ekotHMadSGt5HzlpPlDhrnqFa08A5OloRhG4yRXX_MKTwb88VElF2bCQ=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        <div class="col-sm col-md-6 col-lg-4 ">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="room" value="3" id="room2"> 
+                                  <label for="room2">3)
+                                <img  style="width:250px;" src="https://lh4.googleusercontent.com/aFxpjRxc9nuJNdP5JdVbHQF6_F7WF6oDw7sKZ9C4bWirpX59JFFnYjakWx8pCI2MJBeN1H2M-g=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="room" value="4" id="room3">
+                                  <label for="room3">4)
+                                <img style="width:250px;" src="https://lh5.googleusercontent.com/sjlgpQ_qXY7AXeAt2IRnw_5om0vnzrV378QyEay01GjPgeEsfnAgpd9mp36K1JaF90sh537dYw=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+  
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="room" value="5" id="room4">
+                                  <label for="room4">5)
+                                <img style="width:250px;" src="https://lh4.googleusercontent.com/qYQCY081Pm8n4ZKUUMaH_RK3ICaM7-navDWG2932VroeSAyU7KYEyN4hbyCBdcwuAwrK1Y10iA=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                              </div>
+                        </div>
+                        <div class="col-sm col-md-6 col-lg-4">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                  <input type="radio" name="room" value="6" id="room5">
+                                  <label for="room5">6)
+                                <img style="width:250px;" src="https://lh5.googleusercontent.com/4CHulD5leH_ejqGZqkGiZEUBfiYivYvyOOTLIapFI-p7pXGkyjyEHbOckD0TQMt0R3JNei4kCg=w260">
+                                     
+                                  </label>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                      </div>
+                   
+                   
+                  </div>
+
+
+                   
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="room" value="7">
+                          <label>7) 가장 아래쪽 사진보다 무질서해도 하루이틀쯤은 괜찮아요.</label>
+                        </div>
+                    </div>
+                    <div style="display:flex;"> 
+                      <button class="ui button" type="button" onclick="javascript:history.go(-1);">
+                      홈으로
+                      </button>
+                      <button class="ui button" type="submit" id="su" form="form1" value="Submit" style="background:#00cdcf ">
+                          다음
+                        </button>
+                    </div>
+                    
+                  </div><br>
+                
+              </div>
+
+             
+              </div>
+            
+              </form>
+          </div>
+     
+
+        
+       
+        </div>
+      </div>
+ <script>
+  function loc(){
+    location.href="{% url 'index' %}";
+  }
+ $('.ui.checkbox').checkbox();
+
+ $("#me").checkbox({
+    
+    onChecked: function() {
+      $("#nono").show("1000");
+    },
+    
+  });
+ $("#yo").checkbox({
+  onChecked: function(){
+  $("#nono").css("display","none");
+
+  },
+ }); 
+ 
+ </script>
+{% endblock content %}
