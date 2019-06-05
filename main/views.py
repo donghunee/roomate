@@ -6,6 +6,9 @@ from django.contrib import auth
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+
 # 새로 추가하는 메소드
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
