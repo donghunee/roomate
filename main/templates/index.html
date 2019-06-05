@@ -122,9 +122,11 @@ function start(){
 			
 	</div>
 	</div>
+	{% if not user.is_authenticated %}
 	<span class="navbar-text">
 			<span style="font-weight: bolder;">{{user.username}}</span> 님 환영합니다.
 	</span>
+	{% endif %}
 		</nav>  
 			<section id="banner">
 				
