@@ -13,11 +13,15 @@
     function btn(){
         location.href="{% url 'index' %}";
     }
+    function btn2(){
+        location.href="{% url 'show_matching' %}";
+    }
+
 </script>
 <div style="font-size: 40px; width: 100%; height:100%; display:flex; text-align:center; justify-content: center; align-items: center;">
         <div><span>질문이 끝났습니다.<br> 감사합니다.<br></span>
-<button type="button" class="btn btn-primary" style="color:white !important;background: #00cdcf; border-color: #00cdcf;" onclick="btn()">홈으로</button>  
-        
+<button type="button" class="btn btn-primary" style="color:white !important;background: #00cdcf; border-color: #00cdcf;" onclick="btn()">홈으로</button>
+<button type="button" class="btn btn-primary" style="color:white !important;background: #00cdcf; border-color: #00cdcf;" onclick="btn2()">매칭 시작하기</button>
         </div>
         </div>
 

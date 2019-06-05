@@ -49,17 +49,17 @@ def login(request):
         password = request.POST.get('user_pw',None)
         username = request.POST['user_id']
         password = request.POST['user_pw']
-        
+
 
         user = auth.authenticate(request,username=username, password=password)
         if user is not None:
             if user.is_active:
                 auth.login(request, user)
-                return redirect('index') 
+                return redirect('index')
             else:
                 return render(request,'index.html',{"error":"이메일을 인증해주세요."})
         else:
-            #messages.add_message(request, messages.INFO, '새 글이 등록되었습니다.') 
+            #messages.add_message(request, messages.INFO, '새 글이 등록되었습니다.')
 
             messages.info(request, '아이디와 비밀번호를 확인 해주세요.') #     두번째, shortcut 형태
             return redirect('index')
@@ -68,7 +68,7 @@ def login(request):
         return render(request, 'index.html')
 
 def activate(request, uid64, token):
-    
+
     uid = force_text(urlsafe_base64_decode(uid64))
     user = User.objects.get(pk=uid)
 
@@ -104,7 +104,7 @@ def first(request):
             post.room = request.POST["room"]
             post.toilet = request.POST["toilet"]
             post.save()
-        else:          
+        else:
             post.user = user
             post.sex = request.POST["sex"]
             post.smoke = request.POST["smoke"]
@@ -156,6 +156,9 @@ def four(request):
 
 def fin(request):
     return render(request,'fin.html')
+
+def show_matching(request):
+    return render(request,'show_matching.html')
 
 def ema(request):
     return render(request,'email.html')
