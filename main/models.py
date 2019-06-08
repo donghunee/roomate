@@ -8,9 +8,8 @@ class Post(models.Model):
 
     #기본 인적 사항
     sex = models.CharField(max_length=10,default="male")
-    smoke = models.CharField(max_length=10,default="no")
+    smoke = models.CharField(max_length=10,default="yes")
 
-    # 청결
     shoes = models.IntegerField(default=1)
     toilet = models.IntegerField(default=1)
     kitchen = models.IntegerField(default=1)
@@ -19,8 +18,8 @@ class Post(models.Model):
     #생활패턴
     room_in = models.IntegerField(default=1)
     sleep = models.IntegerField(default=1)
-    roomate = models.IntegerField(default=1)
-
+    pattern =models.CharField(max_length=20,default="AA")
+    #roomate = models.IntegerField(default=1)
     #인성
     one = models.IntegerField(default=1)
     two = models.IntegerField(default=1)

@@ -103,7 +103,7 @@
               <div class="grouped fields">
                 <div class="field">
                           <div class="ui radio checkbox">
-                          <input type="radio" name="smoke_you" value="yes" >
+                          <input type="radio" name="smoke_you" id="smoke_you" value="middle" >
                           <label>상관없습니다.</label>
                         </div>
                 </div>
@@ -442,7 +442,7 @@
                    
                    
                   </div>
-
+                  
 
                    
                     <div class="field">
@@ -484,6 +484,7 @@
  $("#me").checkbox({
     
     onChecked: function() {
+      $("#smoke_you").prop('required',true);
       $("#nono").show("1000");
     },
     
