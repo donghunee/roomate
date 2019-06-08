@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #     secrets = json.loads(f.read())
 
 # def get_secret(setting, secrets=secrets):
-    
+
 #     try:
 #         return secrets[setting]
 #     except KeyError:
@@ -45,6 +45,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'main',
+    'matching',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
