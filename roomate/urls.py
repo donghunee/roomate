@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main import views
+from matching import views as matching_views
 
 urlpatterns = [
     path('logout/', views.logout, name='logout'),
@@ -30,6 +31,6 @@ urlpatterns = [
     path('four/',views.four,name="four"),
 
     path('fin/',views.fin,name="fin"),
-    path('show_matching/',views.show_matching,name="show_matching"),
+    path('show_matching/', matching_views.show_matching, name="show_matching"),
     path('email/',views.ema,name="email"),
 ]

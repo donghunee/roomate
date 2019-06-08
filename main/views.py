@@ -17,6 +17,11 @@ from django.utils.encoding import force_bytes, force_text
 
 from .models import Post
 
+
+# 매칭용 메소드
+from scipy.spatial import distance_matrix
+
+
 def index(request):
     return render(request,'index.html')
 
@@ -156,9 +161,6 @@ def four(request):
 
 def fin(request):
     return render(request,'fin.html')
-
-def show_matching(request):
-    return render(request,'show_matching.html')
 
 def ema(request):
     return render(request,'email.html')
