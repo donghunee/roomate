@@ -103,7 +103,10 @@ def first(request):
             post = Post()
             post.user = user
             post.sex = request.POST["sex"]
-            post.smoke = request.POST["smoke"]
+            if request.POST["smoke"] == "yes":
+                post.smoke = request.POST["smoke"]
+            else:
+                post.smoke = request.POST["smoke_you"]    
             post.shoes = request.POST["shoes"]
             post.kitchen = request.POST["kitchen"]
             post.room = request.POST["room"]
@@ -143,7 +146,21 @@ def three(request):
         current_user = request.user.username
         user = User.objects.get(username=current_user)
         post = get_object_or_404(Post, user=user)
-        post.roomate = request.POST["roomate"]
+        if (post.sleep) == 1 |(post.sleep ==2):
+            if request.POST["roomate"] == 1:
+                post.pattern = "AA"
+            elif request.POST["roomate"] == 2:
+                post.pattern = "Aa"
+            else:
+                post.pattern = "Ax"
+        else:
+            if request.POST["roomate"] == 1:
+                post.pattern = "aa"
+            elif request.POST["roomate"] == 2:
+                post.pattern = "aA"
+            else:
+                post.pattern = "ax"
+        
         post.save()
         return render(request,'four.html')
     return render(request,'four.html')

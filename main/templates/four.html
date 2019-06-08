@@ -127,7 +127,7 @@
                   <button class="ui button" type="button" onClick="javascript:history.go(-1);">
                   이전
                   </button>
-                  <button class="ui button" type="submit" id="su" form="form1" value="Submit" style="background:#00cdcf ">
+                  <button class="ui button" type="submit" id="su" form="form1" onclick="dodo()" value="Submit" style="background:#00cdcf ">
                       제출
                     </button>
                 </div>
@@ -140,13 +140,7 @@
 
   </div>
   <script>
-    function check(){
-      swal("Are you sure you want to do this?", {
-  buttons: ["Oh noez!", true],
-});
-  alert("dawaw");
-    }
-
+    
     $('.ui.checkbox').checkbox();
     </script>
 {% endblock content %}
