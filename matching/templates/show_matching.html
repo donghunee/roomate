@@ -78,4 +78,19 @@
 	</span>
 		</nav>
 
+<!-- 매칭 결과물을 보여줘야 함 -->
+<div class='container'>
+<!-- {{ clean_point }} -->
+
+{{ matching_result }}
+{% for item in sex_filter %}
+<div class='container'>
+	{{ item.user.username }}
+	{{ item.sex }}
+</div>
+{% endfor %}
+
+
+
+</div>
 {% endblock content %}
