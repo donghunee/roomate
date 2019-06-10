@@ -93,6 +93,7 @@
 	</span>
 	</nav>
 
+<<<<<<< HEAD
 
 	<!-- 시작 -->
 	
@@ -126,4 +127,21 @@
 			</div>
 		</div>
 	</div>
+=======
+<!-- 매칭 결과물을 보여줘야 함 -->
+<div class='container'>
+<!-- {{ clean_point }} -->
+
+{{ matching_result }}
+{% for item in sex_filter %}
+<div class='container'>
+	{{ item.user.username }}
+	{{ item.sex }}
+</div>
+{% endfor %}
+
+
+
+</div>
+>>>>>>> b6e24c84eeb20f87932dba50af02116eb3b53c40
 {% endblock content %}
