@@ -82,7 +82,39 @@
 <div class='container'>
 <!-- {{ clean_point }} -->
 
-{{ matching_result }}
+{% for item in matching_result %}
+------------------------
+<div class='container'>
+
+	<p> user_id </p>
+	{{ item.user_id }}
+
+		<p> point </p>>
+	{{ item.point }}
+
+		<p> clean_point </p>
+	{{ item.clean_point }}
+
+		<p> situation_point </p>
+	{{ item.situation_point }}
+
+</div>
+
+{% endfor %}
+
+
+
+<!--
+
+<div class='container'>
+{{ matching_result.user_id }}
+</div>
+
+<div class='container'>
+{{ matching_result.point }}
+</div> -->
+
+
 {% for item in sex_filter %}
 <div class='container'>
 	{{ item.user.username }}

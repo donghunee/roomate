@@ -43,6 +43,7 @@ def show_matching(request):
     # 점수 합산하기
     matching_result = sum_point(post, filter_data, clean_point, situation_point)
     data['matching_result'] = matching_result
+    print(type(matching_result))
 
 
     return render(request, 'show_matching.html', data)
@@ -129,9 +130,25 @@ def sum_point(post, filter_data, clean_point, situation_point):
 
 
     result=pd.DataFrame()
+    result['user_id'] = origin_data['user_id']
     result['point'] = result_list
     result['point'] = result['point'].apply(lambda x: (x-min(result_list))/(max(result_list)-min(result_list)))
-    result['user_id'] = origin_data['user_id']
-    result = result.sort_values(by='point', ascending=False)
+    result['clean_point'] = list(clean_point[target_code])
+    result['situation_point'] = list(situation_point)
 
-    return(result)
+    result = result.sort_values(by='user_id', ascending=True)
+    result = result.reset_index(drop = True)
+
+
+    point_list = []
+    for i in range(len(result['point'])):
+        temp = {}
+        temp['user_id'] = result.loc[i]['user_id']
+        temp['point'] = result.loc[i]['point']
+        temp['clean_point'] = result.loc[i]['clean_point']
+        temp['situation_point'] = result.loc[i]['situation_point']
+        point_list.append(temp)
+
+
+
+    return(point_list)

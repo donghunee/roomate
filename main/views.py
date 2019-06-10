@@ -106,7 +106,7 @@ def first(request):
             if request.POST["smoke"] == "yes":
                 post.smoke = request.POST["smoke"]
             else:
-                post.smoke = request.POST["smoke_you"]    
+                post.smoke = request.POST["smoke_you"]
             post.shoes = request.POST["shoes"]
             post.kitchen = request.POST["kitchen"]
             post.room = request.POST["room"]
@@ -160,7 +160,7 @@ def three(request):
                 post.pattern = "aA"
             else:
                 post.pattern = "ax"
-        
+
         post.save()
         return render(request,'four.html')
     return render(request,'four.html')
